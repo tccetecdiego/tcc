@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" href="perfil.css">
         <title>invocador</title>
     </head>
     <body>
@@ -18,37 +17,125 @@
                 template: `
                 <div class="container">
 
-                <form>
+
   <div class="form-group">
-    <label>Nome</label>
-    <input type="text" class="form-control" placeholder="Nome">
+    <label>Nome do produto</label>
+    <input type="text" v-model="nome" :class="{ 'form-control': backgrounds[0].isActive, 'is-invalid': backgrounds[0].hasError }" placeholder="Nome">
   </div>
   <div class="form-group">
-    <label>Unidade de medida</label>
-    <input type="number" class="form-control" placeholder="(gramas/litros)">
+    <label>Quantidade</label>
+    <input type="text" v-model="quantidade" :class="{ 'form-control': backgrounds[1].isActive, 'is-invalid': backgrounds[1].hasError }" placeholder="Quantidade de produtos">
   </div>
   <div class="form-group">
-    <label>Valor unitário</label>
-    <input type="text" class="form-control" placeholder="Quantidade">
+    <label>Quantidade minima</label>
+    <input type="text" v-model="quantidadem" :class="{ 'form-control': backgrounds[2].isActive, 'is-invalid': backgrounds[2].hasError }" placeholder="Quantidade minima do produto">
   </div>
   <div class="form-group form-check">
     <input type="checkbox" v-model="checked" class="form-check-input">
-    <label class="form-check-label" for="exampleCheck1">Vencimento</label>
+    <label class="form-check-label" for="exampleCheck1">Alimento perecivel</label>
   </div>
   <div class="form-group" v-if="checked">
-    <input type="date" class="form-control" placeholder="Data">
+    <label>Vencimento</label>
+    <input type="date" v-model="venci" :class="{ 'form-control': backgrounds[3].isActive, 'is-invalid': backgrounds[3].hasError }" placeholder="Data">
   </div>
-  <button type="submit" class="btn btn-primary">Adicionar</button>
-</form>
+  <div class="form-group">
+    <label>Preço</label>
+    <input type="text" v-model="preco" :class="{ 'form-control': backgrounds[4].isActive, 'is-invalid': backgrounds[4].hasError }" placeholder="000,00">
+  </div>
+  <button v-on:click="mandar()" class="btn btn-primary">Adicionar</button>
+
 </div>
                 `,
                 data(){
                     return{
-                           checked: false
+                           checked: false,
+                           backgrounds:[{isActive: true,
+                            hasError:false}
+                             ,
+                             {
+                               isActive: true,
+                              hasError:false
+                            },
+                            {
+                              isActive: true,
+                              hasError:false
+                            },
+                            { 
+                              isActive: true,
+                              hasError:false
+                            },
+                            {
+                              isActive: true,
+                              hasError:false
+                            }
+                           ],
+                           nome:'',
+                           quantidade:'',
+                           quantidadem:'',
+                           venci:'',
+                           preco: '',
+                           error: ''
                     }
                 },
                 methods:{
-                    
+                    mandar(){
+                      erro = false;
+                      //nome
+                      if(this.nome == ''){
+                        this.backgrounds[0].hasError = true;
+                        erro = true;
+                      }else{
+                        this.backgrounds[0].hasError = false;
+                      }
+
+                      //quantidade
+                      if(this.quantidade == ''){
+                        this.backgrounds[1].hasError = true;
+                        erro = true;
+                      }else{
+                        this.backgrounds[1].hasError = false;
+                      }
+
+                      //quantidade minima
+                      if(this.quantidadem == ''){
+                        this.backgrounds[2].hasError = true;
+                        erro = true;
+                      }else{
+                        this.backgrounds[2].hasError = false;
+                      }
+
+                      //vencimento
+                      if(this.venci == '' && this.checked == true){
+                        this.backgrounds[3].hasError = true;
+                        erro = true;
+                      }else if(this.checked == false){
+                        this.backgrounds[3].hasError = false;
+                        this.venci = '';
+                      }else{
+                        this.backgrounds[3].hasError = false;
+                      }
+
+                      //preço
+                      if(this.preco == ''){
+                        this.backgrounds[4].hasError = true;
+                        erro = true;
+                      }else{
+                        this.backgrounds[4].hasError = false;
+                      }
+
+                      if(erro == false){
+						
+            td = {
+            nome: this.nome,
+						quantidade: this.quantidade,
+						quantidadem: this.quantidadem,
+						venci: this.venci,
+						preco: this.preco};
+						axios.post('http://localhost:8080/tcc1/post.php',td)
+            .then(response => {console.log(response)})
+						.catch(e => {console.log(e)})
+            }
+            }
                 },
                 mounted () {
                     
