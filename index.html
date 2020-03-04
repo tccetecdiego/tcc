@@ -20,15 +20,15 @@
 
   <div class="form-group">
     <label>Nome do produto</label>
-    <input type="text" v-model="nome" :class="{ 'form-control': backgrounds[0].isActive, 'is-invalid': backgrounds[0].hasError }" placeholder="Nome">
+    <input type="text" v-model="td.nome" :class="{ 'form-control': backgrounds[0].isActive, 'is-invalid': backgrounds[0].hasError }" placeholder="Nome">
   </div>
   <div class="form-group">
     <label>Quantidade</label>
-    <input type="text" v-model="quantidade" :class="{ 'form-control': backgrounds[1].isActive, 'is-invalid': backgrounds[1].hasError }" placeholder="Quantidade de produtos">
+    <input type="text" v-model="td.quantidade" :class="{ 'form-control': backgrounds[1].isActive, 'is-invalid': backgrounds[1].hasError }" placeholder="Quantidade de produtos">
   </div>
   <div class="form-group">
     <label>Quantidade minima</label>
-    <input type="text" v-model="quantidadem" :class="{ 'form-control': backgrounds[2].isActive, 'is-invalid': backgrounds[2].hasError }" placeholder="Quantidade minima do produto">
+    <input type="text" v-model="td.quantidadem" :class="{ 'form-control': backgrounds[2].isActive, 'is-invalid': backgrounds[2].hasError }" placeholder="Quantidade minima do produto">
   </div>
   <div class="form-group form-check">
     <input type="checkbox" v-model="checked" class="form-check-input">
@@ -36,11 +36,11 @@
   </div>
   <div class="form-group" v-if="checked">
     <label>Vencimento</label>
-    <input type="date" v-model="venci" :class="{ 'form-control': backgrounds[3].isActive, 'is-invalid': backgrounds[3].hasError }" placeholder="Data">
+    <input type="date" v-model="td.venci" :class="{ 'form-control': backgrounds[3].isActive, 'is-invalid': backgrounds[3].hasError }" placeholder="Data">
   </div>
   <div class="form-group">
     <label>Preço</label>
-    <input type="text" v-model="preco" :class="{ 'form-control': backgrounds[4].isActive, 'is-invalid': backgrounds[4].hasError }" placeholder="000,00">
+    <input type="text" v-model="td.preco" :class="{ 'form-control': backgrounds[4].isActive, 'is-invalid': backgrounds[4].hasError }" placeholder="000,00">
   </div>
   <button v-on:click="mandar()" class="btn btn-primary">Adicionar</button>
 
@@ -69,19 +69,21 @@
                               hasError:false
                             }
                            ],
-                           nome:'',
-                           quantidade:'',
-                           quantidadem:'',
-                           venci:'',
-                           preco: '',
-                           error: ''
+                           td:{
+                            nome:'',
+                            quantidade:'',
+                            quantidadem:'',
+                            venci:'',
+                            preco: '',
+                            funcionalidade: ''
+                           }
                     }
                 },
                 methods:{
                     mandar(){
                       erro = false;
                       //nome
-                      if(this.nome == ''){
+                      if(this.td.nome == ''){
                         this.backgrounds[0].hasError = true;
                         erro = true;
                       }else{
@@ -89,7 +91,7 @@
                       }
 
                       //quantidade
-                      if(this.quantidade == ''){
+                      if(this.td.quantidade == ''){
                         this.backgrounds[1].hasError = true;
                         erro = true;
                       }else{
@@ -97,7 +99,7 @@
                       }
 
                       //quantidade minima
-                      if(this.quantidadem == ''){
+                      if(this.td.quantidadem == ''){
                         this.backgrounds[2].hasError = true;
                         erro = true;
                       }else{
@@ -105,18 +107,18 @@
                       }
 
                       //vencimento
-                      if(this.venci == '' && this.checked == true){
+                      if(this.td.venci == '' && this.checked == true){
                         this.backgrounds[3].hasError = true;
                         erro = true;
                       }else if(this.checked == false){
                         this.backgrounds[3].hasError = false;
-                        this.venci = '';
+                        this.td.venci = '';
                       }else{
                         this.backgrounds[3].hasError = false;
                       }
 
                       //preço
-                      if(this.preco == ''){
+                      if(this.td.preco == ''){
                         this.backgrounds[4].hasError = true;
                         erro = true;
                       }else{
@@ -124,16 +126,13 @@
                       }
 
                       if(erro == false){
-						
-            td = {
-            nome: this.nome,
-						quantidade: this.quantidade,
-						quantidadem: this.quantidadem,
-						venci: this.venci,
-						preco: this.preco};
-						axios.post('http://localhost:8080/tcc1/post.php',td)
-            .then(response => {console.log(response)})
-						.catch(e => {console.log(e)})
+                        this.td.funcionalidade = 'cadastrar';
+						axios.post('http://localhost:8080/tcc1/post.php',this.td)
+            .then(response => {
+              console.log(response)
+              this.td.funcionalidade = '';
+            })
+						.catch(e => {})
             }
             }
                 },

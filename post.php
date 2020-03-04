@@ -1,15 +1,30 @@
 <?php
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
 
 //conexão com banco de dados
 
-//$sql = new mysqli('localhost', 'root', '', 'tcc');
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-$test = file_get_contents('php://input');
-$test1 = json_decode($test);
+$sql = new mysqli('localhost', 'root', '', 'tcc');
+$conteudo = json_decode(file_get_contents('php://input'));
 
-//pegando nome:
+if($conteudo->funcionalidade == 'cadastrar'){
+    $dados = mysqli_query($sql,"SELECT * from item where nome = '$conteudo->nome'");
+    $vali = mysqli_num_rows($dados);
+    if($vali == 0){
+        $sql->query("INSERT INTO 
+                        item
+                        (nome, quantidade, quantidadem, venci, preco) VALUES('$conteudo->nome','$conteudo->quantidade','$conteudo->quantidadem','$conteudo->venci','$conteudo->preco')");
+        $mensagem = 'Cadastrado com sucesso';
+    }else{
+        $mensagem = 'Produto ja cadastrado, insira um novo nome';
+    }
+}
+else{
+    $mensagem = 'Erro';
+}
 
-//$test1->nome;
+echo $mensagem;
+
+
 
 ?>
