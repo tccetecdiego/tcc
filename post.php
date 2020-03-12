@@ -13,7 +13,7 @@ if($conteudo->funcionalidade == 'cadastrar'){
     if($vali == 0){
         $sql->query("INSERT INTO 
                         item
-                        (nome, quantidade, quantidadem, venci, preco) VALUES('$conteudo->nome','$conteudo->quantidade','$conteudo->quantidadem','$conteudo->venci','$conteudo->preco')");
+                        (nome, quantidade, minQuantidade, preco) VALUES('$conteudo->nome','$conteudo->quantidade','$conteudo->quantidadem','$conteudo->preco')");
         $mensagem = 'Cadastrado com sucesso';
     }else{
         $mensagem = 'Produto ja cadastrado, insira um novo nome';
