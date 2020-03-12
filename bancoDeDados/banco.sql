@@ -1,12 +1,13 @@
 -- --------------------------------------------------------
 -- Servidor:                     localhost
--- Versão do servidor:           5.1.72-community - MySQL Community Server (GPL)
--- OS do Servidor:               Win32
+-- Versão do servidor:           5.7.26 - MySQL Community Server (GPL)
+-- OS do Servidor:               Win64
 -- HeidiSQL Versão:              9.4.0.5125
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
@@ -20,9 +21,8 @@ CREATE TABLE IF NOT EXISTS `item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   `quantidade` int(11) DEFAULT NULL,
-  `quantidadem` int(11) DEFAULT NULL,
-  `venci` date DEFAULT NULL,
-  `preco` double DEFAULT NULL,
+  `minQuantidade` int(11) DEFAULT NULL,
+  `preco` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
