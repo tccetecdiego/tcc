@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>Compra</title>
+    </head>
+    <body>
+        <div id="body"></div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el: '#body',
+                template: `
+                <div class="container">
+
+
+  <div class="form-group">
+    <label>Codigo</label>
+    <input type="text" v-on:keyup.enter="codigoSubmit" v-model="td.codigo" :class="{ 'form-control': backgrounds[0].isActive, 'is-invalid': backgrounds[0].hasError }" placeholder="Nome">
+  </div>
+  <center><h2>OU</h2></center>
+  <div class="form-group">
+    <label>Nome</label>
+    <input type="text" v-on:keyup.enter="nomeSubmit" v-model="td.nome" :class="{ 'form-control': backgrounds[1].isActive, 'is-invalid': backgrounds[1].hasError }" placeholder="Quantidade de produtos">
+  </div>
+  <ul class="list-group">
+  <li class="list-group-item" v-for="item in itens">{{item.nome}}</li>
+    </ul>
+</div>
+                `,
+                data(){
+                    return{
+                        backgrounds:[
+                            {
+                            isActive: true,
+                            hasError:false
+                            },
+                            {
+                            isActive: true,
+                            hasError:false
+                            }
+                        ]
+                        ,
+                        itens:[],
+                        td:{
+                            codigo:'',
+                            nome:''
+                        }
+                    }
+                },
+                methods:{
+                    codigoSubmit(){
+                        console.log(this.td.codigo);
+                        axios.get(`http://localhost:8080/tcc1/get.php?codigo=${this.td.codigo}&funcionalidade=comprarcodigo`)
+                        .then(response => {
+                            console.log(response)
+                        })
+                    },
+                    nomeSubmit(){
+                        console.log(this.td.nome);
+                        axios.get(`http://localhost:8080/tcc1/get.php?codigo=${this.td.nome}&funcionalidade=comprarnome`)
+                        .then(response => {
+                            console.log(response)
+                        })
+                    }
+                },
+                mounted () {
+                    
+                }
+            })
+        </script>
+    </body>
+</html>
