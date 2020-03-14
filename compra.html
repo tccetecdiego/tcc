@@ -55,14 +55,14 @@
                 methods:{
                     codigoSubmit(){
                         console.log(this.td.codigo);
-                        axios.get(`http://localhost:8080/tcc1/get.php?codigo=${this.td.codigo}&funcionalidade=comprarcodigo`)
+                        axios.get(`http://localhost:8080/tcc/get.php?codigo=${this.td.codigo}&funcionalidade=comprarcodigo`)
                         .then(response => {
                             console.log(response)
                         })
                     },
                     nomeSubmit(){
                         console.log(this.td.nome);
-                        axios.get(`http://localhost:8080/tcc1/get.php?codigo=${this.td.nome}&funcionalidade=comprarnome`)
+                        axios.get(`http://localhost:8080/tcc/get.php?nome=${this.td.nome}&funcionalidade=comprarnome`)
                         .then(response => {
                             console.log(response)
                         })
