@@ -24,11 +24,23 @@ if($funcionalidade == 'comprarcodigo'){
     }
     
 }else if($funcionalidade == 'comprarnome'){
-    $getinho = $_GET['nome']; 
-    $dados = mysqli_query($sql, "SELECT * FROM item WHERE nome like '%$getinho%'");
+    $getinho = $_GET['nome'];
+    //$dados = mysqli_query($sql, "SELECT * FROM item WHERE nome like '%$getinho%'");
+    $dados = mysqli_query($sql, "SELECT * FROM item WHERE nome = '$getinho'");
     $vali = mysqli_num_rows($dados);
     if($vali == 0){
-        array_push($mensagem, array('mensagem' => 'nome nâo encontrado'));  
+        $dados = mysqli_query($sql, "SELECT * FROM item WHERE nome like '%$getinho%'");
+        $vali = mysqli_num_rows($dados);
+        if($vali == 0){
+            array_push($mensagem, array('mensagem' => 'nome nâo encontrado'));
+        }else{
+            while($row = mysqli_fetch_object($dados)){
+                array_push($mensagem, array('id'=> $row->id, 'nome'=> $row->nome,
+                'quantidade'=> $row->quantidade, 'minQuantidade'=> $row->minQuantidade, 'preco'=> $row->preco,
+                'mensagem' => 'nome encontrado' ));
+            }
+        }
+          
     }
     else{
         while($row = mysqli_fetch_object($dados)){
