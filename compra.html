@@ -91,7 +91,8 @@
                         final:{
                             troco:'',
                             total:''
-                        }
+                        },
+                        mensagem:''
                         
                     }
                 },
@@ -156,7 +157,15 @@
                         }
                     },
                     finalizar(){
-
+                        td = {"itens":this.itens,
+                         "funcionalidade":'finalizarcompra'
+                         };
+                        axios.post('http://localhost:8080/tcc/post.php',td)
+                        .then(response => {
+                            console.log(response);
+                            this.mensagem = response.data;
+                        })
+                        location.reload();
                     }
                 },
                 updated () {

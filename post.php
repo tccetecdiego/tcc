@@ -13,6 +13,17 @@ if($conteudo->funcionalidade == 'cadastrar'){
         $mensagem = $coluna['mensagem'];
     }
 }
+elseif($conteudo->funcionalidade == 'finalizarcompra'){
+    foreach ($conteudo->itens as $a) {
+        while($a->qua > 0){
+           $sql->query("INSERT INTO historico(item_id, data)
+            VALUES ($a->id,CURDATE())");
+            $sql->query("UPDATE item SET quantidade= quantidade - 1 WHERE id = $a->id");
+            $a->qua--;
+        }
+    }
+    $mensagem = 'finalizado';
+}
 else{
     $mensagem = 'Erro';
 }
