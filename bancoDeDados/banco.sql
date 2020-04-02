@@ -12,6 +12,7 @@
 
 
 -- Copiando estrutura do banco de dados para tcc
+DROP DATABASE IF EXISTS `tcc`;
 CREATE DATABASE IF NOT EXISTS `tcc` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `tcc`;
 
@@ -49,6 +50,13 @@ end if;
 END//
 DELIMITER ;
 
+-- Copiando estrutura para tabela tcc.historico
+CREATE TABLE IF NOT EXISTS `historico` (
+  `item_id` int(11) DEFAULT NULL,
+  `data` date DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- Exportação de dados foi desmarcado.
 -- Copiando estrutura para tabela tcc.item
 CREATE TABLE IF NOT EXISTS `item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -57,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `item` (
   `minQuantidade` int(11) DEFAULT NULL,
   `preco` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- Exportação de dados foi desmarcado.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
