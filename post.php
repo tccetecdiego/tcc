@@ -24,6 +24,17 @@ elseif($conteudo->funcionalidade == 'finalizarcompra'){
     }
     $mensagem = 'finalizado';
 }
+elseif($conteudo->funcionalidade == 'finalizaralteracao'){
+    $id = $conteudo->item->id;
+    $nome = $conteudo->item->nome;
+    $quantidade = $conteudo->item->quantidade;
+    $minQuantidade = $conteudo->item->minQuantidade;
+    $preco = $conteudo->item->preco;
+
+
+    $sql->query("UPDATE item SET nome= '$nome', quantidade = $quantidade, minQuantidade = $minQuantidade, preco = $preco WHERE id = $id");
+    $mensagem = 'Alterado';
+}
 else{
     $mensagem = 'Erro';
 }
