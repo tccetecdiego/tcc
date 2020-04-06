@@ -98,7 +98,6 @@
                 },
                 methods:{
                     codigoSubmit(){
-                        console.log(this.pesquisa.codigo);
                         axios.get(`http://localhost:8080/tcc/get.php?codigo=${this.pesquisa.codigo}&funcionalidade=comprarcodigo`)
                         .then(response => {
                             if(response.data.mensagem == 'codigo encontrado'){
@@ -115,7 +114,6 @@
                         })
                     },
                     nomeSubmit(){
-                        console.log(this.pesquisa.nome);
                         axios.get(`http://localhost:8080/tcc/get.php?nome=${this.pesquisa.nome}&funcionalidade=comprarnome`)
                         .then(response => {
                             if(response.data.mensagem == 'nome encontrado'){
@@ -162,10 +160,8 @@
                          };
                         axios.post('http://localhost:8080/tcc/post.php',td)
                         .then(response => {
-                            console.log(response);
-                            this.mensagem = response.data;
+                            location.reload();
                         })
-                        location.reload();
                     }
                 },
                 updated () {

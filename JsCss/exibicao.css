@@ -1,0 +1,13 @@
+.my-custom-scrollbar {
+    position: relative;
+    height: 600px;
+    overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+    display: block;
+    }
+.pesquisa{
+    border: solid 1px rgb(153, 147, 147);
+    border-radius: 5px;
+    padding:4px;
+}
