@@ -24,6 +24,20 @@ elseif($conteudo->funcionalidade == 'finalizarcompra'){
     }
     $mensagem = 'finalizado';
 }
+elseif($conteudo->funcionalidade == 'alterareexcluir'){
+    foreach ($conteudo->itens as $item) {
+        $minQuantidade =$item->minQuantidade;
+        $quantidade =$item->quantidade;
+        $id = $item->id;
+        $sql->query("UPDATE item SET quantidade = $quantidade, minQuantidade = $minQuantidade  WHERE id = $id");
+    }
+    foreach ($conteudo->deletados as $itemD) {
+        $sql->query("DELETE FROM item WHERE id = $itemD");
+    }
+    $mensagem = 'atualização concluida com sucesso';
+
+}
+
 elseif($conteudo->funcionalidade == 'finalizaralteracao'){
     $id = $conteudo->item->id;
     $nome = $conteudo->item->nome;

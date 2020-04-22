@@ -18,8 +18,8 @@
                 template: `
 <div class="container">
 <center>
-        <input type="number" v-on:keyup.enter="codigoSubmit" class="pesquisa" v-model="codigo" placeholder="Codigo">
-        <input type="text" v-on:keyup.enter="nomeSubmit" class="pesquisa" v-model="nome" placeholder="Nome">
+        <input type="number"  class="pesquisa" v-model="codigo" placeholder="Codigo">
+        <input type="text"  class="pesquisa" v-model="nome" placeholder="Nome">
         </center>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
         <table class="table" v-if="(itens.length > 0)">
