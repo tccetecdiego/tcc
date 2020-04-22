@@ -22,7 +22,7 @@ if($funcionalidade == 'comprarcodigo'){
             'mensagem' => 'codigo encontrado' ));
         }
     }
-    
+    $mensagem = $mensagem[0];
 }else if($funcionalidade == 'comprarnome'){
     $getinho = $_GET['nome'];
     //$dados = mysqli_query($sql, "SELECT * FROM item WHERE nome like '%$getinho%'");
@@ -40,7 +40,6 @@ if($funcionalidade == 'comprarcodigo'){
                 'mensagem' => 'nome encontrado' ));
             }
         }
-          
     }
     else{
         while($row = mysqli_fetch_object($dados)){
@@ -49,14 +48,26 @@ if($funcionalidade == 'comprarcodigo'){
             'mensagem' => 'nome encontrado' ));
         }
     }
-       
+    $mensagem = $mensagem[0];
+}else if($funcionalidade == 'selectall'){
+    $dados = mysqli_query($sql, "SELECT * FROM item");
+    $vali = mysqli_num_rows($dados);
+    if($vali == 0){
+        array_push($mensagem, array('mensagem' => 'Nada Cadastrado'));
+        $mensagem = $mensagem[0];
+    }else{
+        while($row = mysqli_fetch_object($dados)){
+            array_push($mensagem, array('id'=> $row->id, 'nome'=> $row->nome,
+            'quantidade'=> $row->quantidade, 'minQuantidade'=> $row->minQuantidade, 'preco'=> $row->preco));
+        }
+    }
 }else{
 
     array_push($mensagem, array('mensagem' => 'Não ha nada aqui'));
- 
+    $mensagem = $mensagem[0];
 }
 
 
-echo json_encode($mensagem[0]);
+echo json_encode($mensagem);
 
 ?>

@@ -6,7 +6,7 @@
         <script src="JsCss/jquery.js"></script>
         <link rel="stylesheet" href="JsCss/bootstrap.css">
         <link rel="stylesheet" href="JsCss/exibicao.css">
-        <title>Compra</title>
+        <title>Exibição</title>
     </head>
     <body>
         <div id="body"></div>
@@ -18,29 +18,54 @@
                 template: `
 <div class="container">
 <center>
-        <input type="number" v-on:keyup.enter="codigoSubmit" class="pesquisa" v-model="pesquisa.codigo" placeholder="Codigo">
-        <input type="text" v-on:keyup.enter="nomeSubmit" class="pesquisa" v-model="pesquisa.nome" placeholder="Nome">
+        <input type="number" v-on:keyup.enter="codigoSubmit" class="pesquisa" v-model="codigo" placeholder="Codigo">
+        <input type="text" v-on:keyup.enter="nomeSubmit" class="pesquisa" v-model="nome" placeholder="Nome">
         </center>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-    <table class="table" v-if="(itens.length > 0)">
-        <thead>
-            <tr>
-                <th scope="col">Codigo</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Quantidade</th>
-                <th scope="col">Preço</th>
-                <th scope="col">Deletar</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-                <tr v-for="(item, index) in itens">
-                    <th scope="row">{{item.id}}</th>
-                    <td>{{item.nome}}</td>
+        <table class="table" v-if="(itens.length > 0)">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Quantidade Minima</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Deletar</th>
                 </tr>
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                
+                    <tr v-for="(item, index) in filterbar">
+                        <th scope="row">{{item.id}}</th>
+                        <td>{{item.nome}}</td>
+                        <td>
+                            <img src="img/setaesquerda.png" style="cursor:pointer;" v-on:click="menosq(index)">
+                            </img>
+                            {{item.quantidade}}
+                            <img src="img/setadireita.png" style="cursor:pointer;" v-on:click="maisq(index)">
+                            </img>
+                        </td>
+                        <td>
+                            <img src="img/setaesquerda.png" style="cursor:pointer;" v-on:click="menosm(index)">
+                            </img>
+                            {{item.minQuantidade}}
+                            <img src="img/setadireita.png" style="cursor:pointer;" v-on:click="maism(index)">
+                            </img>
+                        </td>
+                        <td>{{item.preco}}</td>
+                        <td>
+                            <button class="btn btn-light" v-on:click="deleta(index,item.id)">
+                            <img src="img/deleteicon.png"/>
+                            </button>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-around" v-if="(itens.length > 0)">
+        <button class="btn btn-warning" v-on:click="atualizar()">Atualizar</button>
+        <button class="btn btn-danger" v-on:click="resetar()">Resetar</button>
+    </div>
 </div>
                 `,
                 data(){
@@ -49,31 +74,93 @@
                         ]
                         ,
                         itens:[],
-                        pesquisa:{
-                            codigo:'',
-                            nome:'',
-                            troco:''
-                        },
-                        final:{
-                            troco:'',
-                            total:''
-                        },
+                        codigo:'',
+                        nome:'',
+                        deletados:[],
                         mensagem:''
-                        
                     }
                 },
                 methods:{
                     filtrar(){
+                    },
+                    deleta(a,b){
+                        this.deletados.push(b);
+                        console.log(this.deletados);
+                        this.itens.splice(a,1);
+                    },
+                    maisq(a){
+                        this.itens[a].quantidade ++;
+                    },
+                    menosq(a){
+                        this.itens[a].quantidade -= 1;
+                    },
+                    maism(a){
+                        this.itens[a].quantidade ++;
+                    },
+                    menosm(a){
+                        this.itens[a].minQuantidade -= 1;
+                    },
+                    atualizar(){
+                        if(this.deletados.length > 0){
+                            if(this.deletados.length > 1){
+                                if(confirm('deseja mesmo deletar alguns itens?') == true){
+                                    td = {"itens":this.itens,
+                                        "deletados":this.deletados,
+                                        "funcionalidade":'alterareexcluir'
+                                    };
+                                    axios.post('http://localhost:8080/tcc/post.php',td)
+                                    .then(response => {
+                                        console.log(response);
+                                    });
+                                }
+                            }
+                            else{
+                                if(confirm('deseja mesmo deletar um item?') == true){
+                                    td = {"itens":this.itens,
+                                        "deletados":this.deletados,
+                                        "funcionalidade":'alterareexcluir'
+                                    };
+                                    axios.post('http://localhost:8080/tcc/post.php',td)
+                                    .then(response => {
+                                        console.log(response);
+                                    });
+                                }
+                            }
+                            
+                        }
+                        else{
+                            td = {"itens":this.itens,
+                                        "deletados":this.deletados,
+                                        "funcionalidade":'alterareexcluir'
+                                    };
+                                    axios.post('http://localhost:8080/tcc/post.php',td)
+                                    .then(response => {
+                                    console.log(response);
+                            });
+                        }
+                    },
+                    resetar(){
+                        location.reload();
                     }
                 },
                 mounted () {
                     axios.get(`http://localhost:8080/tcc/get.php?funcionalidade=selectall`)
                     .then(response => {
                         console.log(response.data);
+                        this.itens = response.data;
                     })
                 },
-                updated () {
-                    this.totalf();
+                computed:{
+                    filterbar(){
+                        if(this.codigo != ''){
+                            return this.itens.filter((itens) => {
+                                return itens.id == this.codigo && itens.nome.match(this.nome);
+                            })
+                        }
+                        return this.itens.filter((itens) => {
+                            return itens.nome.match(this.nome);
+                        });
+                    }
                 }
             })
         </script>
