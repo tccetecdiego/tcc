@@ -15,8 +15,28 @@
             new Vue({
                 el: '#body',
                 template: `
-                <div class="container">
-
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Adicionar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="compra.html">Comprar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="exibicao.html">Estoque</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Historico de Compras</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="alteracao.html">Alteração de produtos</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
   <div class="form-group">
     <label>Nome do produto</label>
@@ -109,8 +129,13 @@
                         this.td.funcionalidade = 'cadastrar';
 						axios.post('http://localhost:8080/tcc/post.php',this.td)
             .then(response => {
-              alert(response.data);
-              location.reload();
+                console.log(response.data);
+                if(response.data == 'produto ja cadastrado'){
+                    alert(response.data);
+                }else{
+                    alert(response.data);
+                    location.reload();
+                  }
               this.td.funcionalidade = '';
             })
 						.catch(e => {})
