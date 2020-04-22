@@ -160,7 +160,13 @@
                          };
                         axios.post('http://localhost:8080/tcc/post.php',td)
                         .then(response => {
-                            location.reload();
+                            console.log(response.data);
+                            if(response.data == 'produto ja cadastrado'){
+                                alert(response.data);
+                            }else{
+                                alert(response.data);
+                                location.reload();
+                            }
                         })
                     }
                 },

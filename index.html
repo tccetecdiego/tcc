@@ -109,7 +109,8 @@
                         this.td.funcionalidade = 'cadastrar';
 						axios.post('http://localhost:8080/tcc/post.php',this.td)
             .then(response => {
-              this.mensagem = response.data;
+              alert(response.data);
+              location.reload();
               this.td.funcionalidade = '';
             })
 						.catch(e => {})
