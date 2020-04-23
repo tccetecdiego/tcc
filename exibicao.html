@@ -43,7 +43,7 @@
         <input type="text"  class="pesquisa" v-model="nome" placeholder="Nome">
         </center>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-        <table class="table" >
+        <table class="table" v-if="(itens.length > 0)">
             <thead>
                 <tr>
                     <th scope="col">Codigo</th>
@@ -56,7 +56,7 @@
             </thead>
             <tbody>
                 
-                    <tr v-for="item in filterbar">
+                    <tr v-for="item in filterbar" :style="cor(item.quantidade,item.minQuantidade)">
                         <th scope="row">{{item.id}}</th>
                         <td>{{item.nome}}</td>
                         <td>
@@ -100,7 +100,14 @@
                     }
                 },
                 methods:{
-                    filtrar(){
+                    cor(a,b){
+                        if((a-b)<0){
+                            return {backgroundColor:"#f25f5c"};
+                        }
+                        if((a-b)<3){
+                            return {backgroundColor:"#ffe066"};
+                        }
+                        return {backgroundColor:"#bce784"};
                     },
                     deleta(a){
                         b = this.itens.findIndex(i => i.id == a);

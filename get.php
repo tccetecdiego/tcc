@@ -50,7 +50,7 @@ if($funcionalidade == 'comprarcodigo'){
     }
     $mensagem = $mensagem[0];
 }else if($funcionalidade == 'selectall'){
-    $dados = mysqli_query($sql, "SELECT * FROM item");
+    $dados = mysqli_query($sql, "SELECT * FROM item ORDER BY quantidade - minQuantidade ASC");
     $vali = mysqli_num_rows($dados);
     if($vali == 0){
         array_push($mensagem, array('mensagem' => 'Nada Cadastrado'));
