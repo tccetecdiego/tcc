@@ -61,6 +61,18 @@ if($funcionalidade == 'comprarcodigo'){
             'quantidade'=> $row->quantidade, 'minQuantidade'=> $row->minQuantidade, 'preco'=> $row->preco));
         }
     }
+}else if($funcionalidade == 'selectallhistorico'){
+    $dados = mysqli_query($sql, "SELECT * FROM historico INNER JOIN item on (item.id = historico.item_id) ORDER BY data DESC");
+    $vali = mysqli_num_rows($dados);
+    if($vali == 0){
+        array_push($mensagem, array('mensagem' => 'Nada no historico'));
+        $mensagem = $mensagem[0];
+    }else{
+        while($row = mysqli_fetch_object($dados)){
+            array_push($mensagem, array('id'=> $row->id, 'nome'=> $row->nome,
+            'data'=> $row->data, 'preco'=> $row->preco));
+        }
+    }
 }else{
 
     array_push($mensagem, array('mensagem' => 'Não ha nada aqui'));
