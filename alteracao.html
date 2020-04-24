@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="JsCss/meucss.css">
         <title>Alterar</title>
     </head>
-    <body>
+    <body class="body">
         <div id="body"></div>
         <script src="JsCss/axios.js"></script>
         <script src="JsCss/vue.js"></script>
@@ -16,8 +16,9 @@
             new Vue({
                 el: '#body',
                 template: `
-<div class="container">
+                <div>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container">
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -37,7 +38,10 @@
         </li>
       </ul>
     </div>
+    </div>
   </nav>
+<div class="container bodyy">
+    <br>
 <div>
     <div class="form-group">
         <label>Codigo</label>
@@ -70,6 +74,7 @@
   </div>
   <center><button v-on:click="finalizar()" class="btn btn-primary">Alterar</button></center>
   <br><center><h2>{{mensagem}}</h2></center>
+</div>
 </div>
 </div>
                 `,

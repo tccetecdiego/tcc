@@ -2,7 +2,15 @@
     position: relative;
     height: 400px;
     overflow: auto;
-    }
-    .table-wrapper-scroll-y {
+}
+.table-wrapper-scroll-y {
     display: block;
-    }
+}
+.bodyy{
+    margin-top: 20px;
+    background-color: #dddddd;
+    border-radius: 20px;
+}
+.body{
+    background-color: #979797;
+}

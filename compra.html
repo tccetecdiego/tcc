@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="JsCss/meucss.css">
         <title>Compra</title>
     </head>
-    <body>
+    <body class="body">
         <div id="body"></div>
         <script src="JsCss/axios.js"></script>
         <script src="JsCss/vue.js"></script>
@@ -16,8 +16,10 @@
             new Vue({
                 el: '#body',
                 template: `
-<div class="container">
+                <div>
+
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container">
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -37,7 +39,10 @@
         </li>
       </ul>
     </div>
+    </div>
   </nav>
+  <div class="container bodyy">
+  <br>
     <div class="form-group">
         <label>Codigo</label>
         <input type="number" v-on:keyup.enter="codigoSubmit" v-model="pesquisa.codigo" :class="{ 'form-control': backgrounds[0].isActive, 'is-invalid': backgrounds[0].hasError }" placeholder="Codigo">
@@ -71,7 +76,7 @@
                         </td>
                     <td>R$ {{(item.preco * item.qua).toFixed(2)}}</td>
                     <td>
-                    <button class="btn btn-light" v-on:click="deleta(index)">
+                    <button class="btn" v-on:click="deleta(index)">
                     <img src="img/deleteicon.png">
                     </img>
                     </button>
@@ -88,6 +93,8 @@
                     <th v-show="pesquisa.troco">Troco: R$ {{parseFloat(final.troco).toFixed(2)}}</th>
                     <button class="btn btn-primary" v-on:click="finalizar()">Finalizar</button>
                 </div>
+                <br>
+</div>
 </div>
                 `,
                 data(){
