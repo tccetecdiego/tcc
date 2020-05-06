@@ -97,21 +97,25 @@
                     filterbar(){
                         if(this.codigo != '' && this.data != ''){
                             return this.historicos.filter((historicos) => {
-                                return historicos.id == this.codigo && historicos.nome.match(this.nome) && historicos.data == this.data;
+                                semcriatividade = historicos.nome.toUpperCase();
+                                return historicos.id == this.codigo && semcriatividade.match(this.nome.toUpperCase()) && historicos.data == this.data;
                             })
                         }
                         if(this.codigo != ''){
                             return this.historicos.filter((historicos) => {
-                                return historicos.id == this.codigo && historicos.nome.match(this.nome);
+                                semcriatividade = historicos.nome.toUpperCase();
+                                return historicos.id == this.codigo && semcriatividade.match(this.nome.toUpperCase());
                             })
                         }
                         if(this.data != ''){
                             return this.historicos.filter((historicos) => {
-                                return historicos.data == this.data && historicos.nome.match(this.nome);
+                                semcriatividade = historicos.nome.toUpperCase();
+                                return historicos.data == this.data && semcriatividade.match(this.nome.toUpperCase());
                             })
                         }
                         return this.historicos.filter((historicos) => {
-                            return historicos.nome.match(this.nome);
+                            semcriatividade = historicos.nome.toUpperCase();
+                            return semcriatividade.match(this.nome.toUpperCase());
                         });
                     }
                 }

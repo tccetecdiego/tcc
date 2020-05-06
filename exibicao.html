@@ -193,11 +193,13 @@
                     filterbar(){
                         if(this.codigo != ''){
                             return this.itens.filter((itens) => {
-                                return itens.id == this.codigo && itens.nome.match(this.nome);
+                                semcriatividade = itens.nome.toUpperCase();
+                                return itens.id == this.codigo && semcriatividade.match(this.nome.toUpperCase());
                             })
                         }
                         return this.itens.filter((itens) => {
-                            return itens.nome.match(this.nome);
+                            semcriatividade = itens.nome.toUpperCase();
+                            return semcriatividade.match(this.nome.toUpperCase());
                         });
                     }
                 }
