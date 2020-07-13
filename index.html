@@ -16,30 +16,59 @@
             new Vue({
                 el: '#body',
                 template: `
-<div>
+                <div>
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-    <div class="container">
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.html">Adicionar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="compra.html">Comprar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="exibicao.html">Estoque</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="historicoCompra.html">Historico de Compras</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="alteracao.html">Alteração de produtos</a>
-        </li>
-      </ul>
-      </div>
-    </div>
-  </nav>
+    <a class="navbar-brand" href="#"><img src="img/icone.png"></a>
+			<div class="container">
+        <div class="row">
+          <div class="col">
+				  <a class="nav-link ativado" href="index.html" title="Adicionar">
+          <center>
+					<div class="containerimg">
+						<img src="img/add.png" width="80%" height="100%">
+					</div>
+          </center>
+				  </a>
+				</div>
+				<div class="col">
+					<a class="nav-link" href="compra.html" title="Comprar">
+          <center>
+            <div class="containerimg">
+              <img src="img/comprar.png" width="40%" height="100%">
+            </div>
+          </center>
+					</a>
+				</div>
+				<div class="col">
+					<a class="nav-link" href="exibicao.html" title="Estoque">
+            <center>
+              <div class="containerimg">
+                <img src="img/stock.png" width="40%" height="100%">
+              </div>
+            </center>
+					</a>
+				</div>
+				<div class="col">
+					<a class="nav-link" href="historicoCompra.html" title="Histórico de Compras">
+            <center>
+              <div class="containerimg">
+                <img src="img/historico.png" width="40%" height="100%">
+              </div>
+            </center>
+					</a>
+				</div>
+				<div class="col">
+					<a class="nav-link" href="alteracao.html" title="Alteração de produtos">
+            <center>
+              <div class="containerimg">
+                <img src="img/alterar.png" width="40%" height="100%">
+              </div>
+            </center>
+					</a>
+				</div>
+			  </div>
+			</div>
+	</nav>
   <div class="container bodyy">
   <br>
   <div class="form-group">

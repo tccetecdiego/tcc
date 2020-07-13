@@ -18,28 +18,57 @@
                 template: `
                 <div>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <div class="container">
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Adicionar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="compra.html">Comprar</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="exibicao.html">Estoque</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="historicoCompra.html">Historico de Compras</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="alteracao.html">Alteração de produtos</a>
-        </li>
-      </ul>
-    </div>
-    </div>
-  </nav>
+        <a class="navbar-brand" href="#"><img src="img/icone.png"></a>
+			<div class="container">
+        <div class="row">
+          <div class="col">
+				  <a class="nav-link" href="index.html" title="Adicionar">
+          <center>
+					<div class="containerimg">
+						<img src="img/add.png" width="80%" height="100%">
+					</div>
+          </center>
+				  </a>
+				</div>
+				<div class="col">
+					<a class="nav-link" href="compra.html" title="Comprar">
+          <center>
+            <div class="containerimg">
+              <img src="img/comprar.png" width="40%" height="100%">
+            </div>
+          </center>
+					</a>
+				</div>
+				<div class="col">
+					<a class="nav-link ativado" href="exibicao.html" title="Estoque">
+            <center>
+              <div class="containerimg">
+                <img src="img/stock.png" width="40%" height="100%">
+              </div>
+            </center>
+					</a>
+				</div>
+				<div class="col">
+					<a class="nav-link" href="historicoCompra.html" title="Histórico de Compras">
+            <center>
+              <div class="containerimg">
+                <img src="img/historico.png" width="40%" height="100%">
+              </div>
+            </center>
+					</a>
+				</div>
+				<div class="col">
+					<a class="nav-link" href="alteracao.html" title="Alteração de produtos">
+            <center>
+              <div class="containerimg">
+                <img src="img/alterar.png" width="40%" height="100%">
+              </div>
+            </center>
+					</a>
+				</div>
+			  </div>
+			</div>
+            </nav>
   <div class="container bodyy">
     <br>
 <center v-if="(itens.length > 0)">
@@ -55,6 +84,7 @@
                     <th scope="col">Quantidade</th>
                     <th scope="col">Quantidade Minima</th>
                     <th scope="col">Preço</th>
+                    <th scope="col">Editar</th>
                     <th scope="col">Deletar</th>
                 </tr>
             </thead>
@@ -79,18 +109,24 @@
                         </td>
                         <td>{{item.preco}}</td>
                         <td>
+                            <button class="btn" v-on:click="editar(item.id)">
+                            <img class="ama" src="img/editar.png"/>
+                            </button>
+                        </td>
+                        <td>
                             <button class="btn" v-on:click="deleta(item.id)">
-                            <img src="img/deleteicon.png"/>
+                            <img class="ama" src="img/deleteicon.png"/>
                             </button>
                         </td>
                     </tr>
             </tbody>
         </table>
+        <center v-else><h2>Nenhum Resultado</h2></center>
     </div>
     <br>
     <div class="d-flex justify-content-around">
         <button class="btn btn-warning" v-on:click="atualizar()">Atualizar</button>
-        <button class="btn btn-danger" v-on:click="resetar()">Recarregar</button>
+        <button class="btn btn-danger" v-on:click="resetar()">Cancelar</button>
     </div>
     <br>
 </div>
@@ -114,6 +150,9 @@
                             return {backgroundColor:"#ffe066"};
                         }
                         return {backgroundColor:"#bce784"};
+                    },
+                    editar(a){
+                        window.location.href = "alteracao.html?id="+a;
                     },
                     deleta(a){
                         b = this.itens.findIndex(i => i.id == a);

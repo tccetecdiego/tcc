@@ -6,7 +6,7 @@
         <script src="JsCss/jquery.js"></script>
         <link rel="stylesheet" href="JsCss/bootstrap.css">
         <link rel="stylesheet" href="JsCss/exibicao.css">
-        <title>Exibição</title>
+        <title>Historico De Compras</title>
     </head>
     <body class="body">
         <div id="body"></div>
@@ -18,27 +18,56 @@
                 template: `
 <div>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <div class="container">
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Adicionar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="compra.html">Comprar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="exibicao.html">Estoque</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="historicoCompra.html">Historico de Compras</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="alteracao.html">Alteração de produtos</a>
-        </li>
-      </ul>
-    </div>
-    </div>
+        <a class="navbar-brand" href="#"><img src="img/icone.png"></a>
+			<div class="container">
+        <div class="row">
+          <div class="col">
+				  <a class="nav-link" href="index.html" title="Adicionar">
+          <center>
+					<div class="containerimg">
+						<img src="img/add.png" width="80%" height="100%">
+					</div>
+          </center>
+				  </a>
+				</div>
+				<div class="col">
+					<a class="nav-link" href="compra.html" title="Comprar">
+          <center>
+            <div class="containerimg">
+              <img src="img/comprar.png" width="40%" height="100%">
+            </div>
+          </center>
+					</a>
+				</div>
+				<div class="col">
+					<a class="nav-link" href="exibicao.html" title="Estoque">
+            <center>
+              <div class="containerimg">
+                <img src="img/stock.png" width="40%" height="100%">
+              </div>
+            </center>
+					</a>
+				</div>
+				<div class="col">
+					<a class="nav-link ativado" href="historicoCompra.html" title="Histórico de Compras">
+            <center>
+              <div class="containerimg">
+                <img src="img/historico.png" width="40%" height="100%">
+              </div>
+            </center>
+					</a>
+				</div>
+				<div class="col">
+					<a class="nav-link" href="alteracao.html" title="Alteração de produtos">
+            <center>
+              <div class="containerimg">
+                <img src="img/alterar.png" width="40%" height="100%">
+              </div>
+            </center>
+					</a>
+				</div>
+			  </div>
+			</div>
   </nav>
   <div class="container bodyy">
     <br>
@@ -53,6 +82,7 @@
                 <tr>
                     <th scope="col">Codigo</th>
                     <th scope="col">Nome</th>
+                    <th scope="col">Quantidades comprada</th>
                     <th scope="col">Preço</th>
                     <th scope="col">Data</th>
                 </tr>
@@ -62,11 +92,13 @@
                     <tr v-for="historico in filterbar">
                         <th scope="row">{{historico.id}}</th>
                         <td>{{historico.nome}}</td>
+                        <td>{{historico.vezescomprado}}</td>
                         <td>{{historico.preco}}</td>
                         <td>{{databr(historico.data)}}</td>
                     </tr>
             </tbody>
         </table>
+        <center v-else><h2>Nenhum Resultado</h2></center>
     </div>
 </div>
 </div>

@@ -14,3 +14,28 @@
 .body{
     background-color: #979797;
 }
+
+/*classe dos containers do navbar*/
+
+.containerimg img {
+	max-width: 130px;
+    max-height: 65px;
+}
+.containerimg {
+	clear: both;
+}
+a:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.ativado{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+a:hover .ativado{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.navbar-brand img{
+    max-width: 130px;
+    max-height: 65px;
+}
+	

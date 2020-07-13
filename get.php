@@ -62,7 +62,7 @@ if($funcionalidade == 'comprarcodigo'){
         }
     }
 }else if($funcionalidade == 'selectallhistorico'){
-    $dados = mysqli_query($sql, "SELECT * FROM historico INNER JOIN item on (item.id = historico.item_id) ORDER BY data DESC");
+    $dados = mysqli_query($sql, "SELECT COUNT(*) AS vezescomprado, id, nome, data, preco FROM historico INNER JOIN item on (item.id = historico.item_id) GROUP BY item.id,historico.data ORDER BY data DESC");
     $vali = mysqli_num_rows($dados);
     if($vali == 0){
         array_push($mensagem, array('mensagem' => 'Nada no historico'));
@@ -70,7 +70,7 @@ if($funcionalidade == 'comprarcodigo'){
     }else{
         while($row = mysqli_fetch_object($dados)){
             array_push($mensagem, array('id'=> $row->id, 'nome'=> $row->nome,
-            'data'=> $row->data, 'preco'=> $row->preco));
+            'data'=> $row->data, 'preco'=> $row->preco, 'vezescomprado'=> $row->vezescomprado));
         }
     }
 }else{
