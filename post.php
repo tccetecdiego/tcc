@@ -32,7 +32,7 @@ elseif($conteudo->funcionalidade == 'alterareexcluir'){
         $sql->query("UPDATE item SET quantidade = $quantidade, minQuantidade = $minQuantidade  WHERE id = $id");
     }
     foreach ($conteudo->deletados as $itemD) {
-        $sql->query("DELETE FROM item WHERE id = $itemD");
+        mysqli_query($sql,"CALL deletar($itemD)");
     }
     $mensagem = 'atualização concluida com sucesso';
 
@@ -44,10 +44,10 @@ elseif($conteudo->funcionalidade == 'finalizaralteracao'){
     $quantidade = $conteudo->item->quantidade;
     $minQuantidade = $conteudo->item->minQuantidade;
     $preco = $conteudo->item->preco;
-
-
-    $sql->query("UPDATE item SET nome= '$nome', quantidade = $quantidade, minQuantidade = $minQuantidade, preco = $preco WHERE id = $id");
-    $mensagem = 'Alterado';
+    $result = mysqli_query($sql,"CALL alterar($id,'$nome',$quantidade,$minQuantidade,$preco)");
+    while($coluna = mysqli_fetch_array($result)) {
+        $mensagem = $coluna['mensagem'];
+    }
 }
 else{
     $mensagem = 'Erro';
