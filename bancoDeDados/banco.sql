@@ -115,44 +115,6 @@ CREATE TABLE IF NOT EXISTS `deletados` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- Exportação de dados foi desmarcado.
--- Copiando estrutura para procedure tcc.deletar
-DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deletar`(
-	IN `pId` INT
-
-
-
-
-
-
-)
-BEGIN
-
-	declare a int;
-	declare b int;
-	
-	SELECT count(*) into a FROM item WHERE id = pId;
-
-	if a = 1 then
-	
-		INSERT INTO deletados(id,nome, quantidade, minQuantidade, preco) select p.id,p.nome,p.quantidade,p.minQuantidade,p.preco from item as p where id = pId;
-	   DELETE FROM item WHERE id = pId;
-	   
-	   SELECT count(*) into b FROM item WHERE id = pId;
-	   if b = 0 then
-			select 'deletado com sucesso' as mensagem;
-		
-		else
-			select 'Erro' as mensagem;
-		end if;
-	else
-		select 'produto ja deletado' as mensagem;
-	end if;
-
-
-END//
-DELIMITER ;
-
 -- Copiando estrutura para tabela tcc.historico
 CREATE TABLE IF NOT EXISTS `historico` (
   `item_id` int(11) DEFAULT NULL,

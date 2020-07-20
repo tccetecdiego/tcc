@@ -32,7 +32,12 @@ elseif($conteudo->funcionalidade == 'alterareexcluir'){
         $sql->query("UPDATE item SET quantidade = $quantidade, minQuantidade = $minQuantidade  WHERE id = $id");
     }
     foreach ($conteudo->deletados as $itemD) {
-        mysqli_query($sql,"CALL deletar($itemD)");
+        $val = mysqli_query($sql,"SELECT * FROM item WHERE id = $itemD;");
+        $vali = mysqli_num_rows($val);
+        if($vali == 1){
+            $sql->query("INSERT INTO deletados(id,nome, quantidade, minQuantidade, preco) select p.id,p.nome,p.quantidade,p.minQuantidade,p.preco from item as p where id = $itemD;");
+            $sql->query("DELETE FROM item WHERE id = $itemD;");
+        }
     }
     $mensagem = 'atualização concluida com sucesso';
 
